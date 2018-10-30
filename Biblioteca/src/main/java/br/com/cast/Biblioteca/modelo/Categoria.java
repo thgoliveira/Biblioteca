@@ -22,7 +22,7 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gerador_livro_seq")
 	private Integer id;
 
-	@Column(name = "titulo", length = 2000, nullable = false)
+	@Column(name = "descricao", length = 2000, nullable = false)
 	private String descricao;
 
 	@OneToMany(mappedBy = "categoria")

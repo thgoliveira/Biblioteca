@@ -3,7 +3,9 @@ package br.com.cast.Biblioteca.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,9 +38,15 @@ public class LivroAPI {
 		bService.salvar(livroDto);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
-	public void remover(Integer id) {
+	@DeleteMapping(path="/{id}")
+	public void remover(@PathVariable("id") Integer id) {
 		bService.excluirLivro(id);
+	}
+	
+	@GetMapping(path="/{id}")
+	public LivroDTO buscarPorID(@PathVariable("id") Integer id) {
+		LivroDTO lDto = bService.buscarPorID(id);
+		return lDto;
 	}
 
 }

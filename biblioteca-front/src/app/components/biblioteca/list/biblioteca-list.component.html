@@ -1,0 +1,23 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Data de Publicação</th>
+        <th>Autor</th>
+        <th>Categoria</th>
+        <th colspan="2">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let livro of livros">
+        <td>{{ livro.id }}</td>
+        <td>{{ livro.titulo }}</td>
+        <td>{{ livro.publicacao }}</td>
+        <td>{{ livro.autorDTO.nome }}</td>
+        <td>{{ livro.categoriaDTO.descricao }}</td>
+        <td><button class="btn btn-warning" [routerLink]="[ '/livro/alterar', livro.id]">Alterar</button></td>
+        <td><button class="btn btn-danger" (click)="excluir(livro.id)">Excluir</button></td>
+      </tr>
+    </tbody>
+  </table>

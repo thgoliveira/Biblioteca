@@ -1,0 +1,26 @@
+<form (ngSubmit)="salvar()" [formGroup]="formulario">
+ <div>
+   <input id="id" type="text" hidden formControlName="id" /> 
+   <label>Titulo</label>
+   <input id="titulo" type="text" formControlName="titulo"/>
+ 
+   <label>Data de publicação</label>
+   <input type="date" formControlName="publicacao" />
+ </div> 
+
+  <div formGroupName="autorDTO">
+   <label>Autor</label>
+   <select id="autor" formControlName="id">
+     <option *ngFor="let autor of autores" [value]="autor.id"> {{ autor.nome }} </option>
+   </select>
+  </div>
+  
+  <div formGroupName="categoriaDTO">
+   <label>Categoria</label>
+   <select id="categoria" formControlName="id">
+     <option *ngFor="let categoria of categorias" [value]="categoria.id"> {{ categoria.descricao }} </option>
+   </select>
+ </div>
+
+  <button>Salvar</button>
+</form>

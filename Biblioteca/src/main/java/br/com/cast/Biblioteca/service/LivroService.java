@@ -30,6 +30,27 @@ public class LivroService {
 	@Autowired
 	private CategoriaRepository cRep;
 	
+	public LivroDTO buscarPorID(Integer id) {
+		LivroDTO lDto = new LivroDTO();
+		Livro livro = lRep.buscarPorId(id);
+		lDto.setId(livro.getId());
+		lDto.setTitulo(livro.getTitulo());
+		lDto.setPublicacao(dateToString(livro.getPublicacao()));
+		
+		AutorDTO aDto = new AutorDTO();
+		aDto.setId(livro.getAutor().getId());
+		aDto.setNome(livro.getAutor().getNome());
+		aDto.setPseudonimo(livro.getAutor().getPseudonimo());
+		lDto.setAutorDTO(aDto);
+		
+		CategoriaDTO cDto = new CategoriaDTO();
+		cDto.setId(livro.getCategoria().getId());
+		cDto.setDescricao(livro.getCategoria().getDescricao());
+		
+		lDto.setCategoriaDTO(cDto);
+		
+		return lDto;
+	}
 	
 	public List<LivroDTO> buscarTodos() {
 
@@ -68,8 +89,8 @@ public class LivroService {
 	
 	public void salvar(LivroDTO livroDTO){
 		
-		Autor autor = aRep.buscarPorId(livroDTO.getIdAutor());
-		Categoria categoria = cRep.buscarPorId(livroDTO.getIdCategoria());
+		Autor autor = aRep.buscarPorId(livroDTO.getAutorDTO().getId());
+		Categoria categoria = cRep.buscarPorId(livroDTO.getCategoriaDTO().getId());
 			
 		Livro livro = new Livro();
 		livro.setId(livroDTO.getId());
@@ -93,7 +114,7 @@ public class LivroService {
 	
 	public Date stringToDate(String data) {
 		Date dataFormatada = null;
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			dataFormatada = format.parse(data);
 		} catch (Exception e) {
@@ -104,7 +125,7 @@ public class LivroService {
 
 	public String dateToString(Date date) {
 		String dataFormatada = "";
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			dataFormatada = format.format(date);
 		} catch (Exception e) {
@@ -112,5 +133,6 @@ public class LivroService {
 		}
 		return dataFormatada;
 	}
+
 
 }
